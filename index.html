@@ -51,12 +51,24 @@
                             <label class="form-check-label" for="gptCheckbox">Incluir no cálculo</label>
                         </div>
                         <div class="form-group">
-                            <label for="gptModel">Modelo GPT:</label>
+                            <label for="gptModel">Modelo:</label>
                             <select id="gptModel" class="form-control" onchange="calculateCost()">
-                                <option value="0.3:0.61">Llama-3.1-8B instr. ($0.3 / 1M input tokens | $0.61 / 1M output tokens )</option>
-                                <option value="5.00:15.00">gpt-4o ($5.00 / 1M input tokens | $15.00 / 1M output tokens)</option>
-                                <option value="2.50:10.00">gpt-4o-2024-08-06 ($2.50 / 1M input tokens | $10.00 output tokens)</option>
-                                <option value="5.00:15.00">gpt-4o-2024-05-13 ($5.00 / 1M input tokens | $15.00 / 1M output tokens)</option>
+                                <option value="0.3:0.61">Azure Llama-3.1-8B instr. ($0.3 / 1M input tokens | $0.61 / 1M output tokens)</option>
+                                <option value="0.59:0.79">Groq Llama 3 70B 8k ($0.59 / 1M input tokens | $0.79 / 1M output tokens)</option>
+                                <option value="0.05:0.08">Groq Llama 3 8B 8k ($0.05 / 1M input tokens | $0.08 / 1M output tokens)</option>
+                                <option value="0.24:0.24">Groq Mixtral 8x7B Instruct 32k ($0.24 / 1M input tokens | $0.24 / 1M output tokens)</option>
+                                <option value="0.07:0.07">Groq Gemma 7B 8k Instruct ($0.07 / 1M input tokens | $0.07 / 1M output tokens)</option>
+                                <option value="0.20:0.20">Groq Gemma 2 9B (8K Context Length) ($0.20 / 1M input tokens | $0.20 / 1M output tokens)</option>
+                                <option value="3:15">Claude 3.5 Sonnet ($3 / 1M input tokens | $15 / 1M output tokens)</option>
+                                <option value="15:75">Claude 3 Opus ($15 / 1M input tokens | $75 / 1M output tokens)</option>
+                                <option value="0.25:1.25">Claude 3 Haiku ($0.25 / 1M input tokens | $1.25 / 1M output tokens)</option>
+                                <option value="0.075:0.30">Google Gemini 1.5 flash até 128k tokens/requisição ($0.075 / 1M input tokens | $0.30 / 1M output tokens)</option>
+                                <option value="0.15:0.60">Google Gemini 1.5 flash mais de 128k tokens/requisição ($0.15 / 1M input tokens | $0.60 / 1M output tokens)</option>
+                                <option value="3.50:10.50">Google Gemini 1.5 pro até 128k tokens/requisição ($3.50 / 1M input tokens | $10.50 / 1M output tokens)</option>
+                                <option value="7:21">Google Gemini 1.5 pro mais de 128k tokens/requisição ($7 / 1M input tokens | $21 / 1M output tokens)</option>
+                                <option value="5.00:15.00">Openai gpt-4o ($5.00 / 1M input tokens | $15.00 / 1M output tokens)</option>
+                                <option value="2.50:10.00">Openai gpt-4o-2024-08-06 ($2.50 / 1M input tokens | $10.00 output tokens)</option>
+                                <option value="5.00:15.00">Openai gpt-4o-2024-05-13 ($5.00 / 1M input tokens | $15.00 / 1M output tokens)</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -350,7 +362,10 @@
             return configuracoes[2];
         } else if (tokens <= 50) {
             return configuracoes[3];
-        } else {
+        } else if (tokens > 50) {
+            return configuracoes[3];
+        }
+         else {
             return "Número de tokens fora do intervalo especificado.";
         }
     }
@@ -494,3 +509,5 @@
  
 </body>
 </html>
+ 
+ 
