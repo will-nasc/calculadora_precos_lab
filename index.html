@@ -350,6 +350,58 @@
                         Custo: [10000,13000]
                     }
                 ]
+            },
+            {
+                escala: "Extremamente Grande Escala (50-70 milhões de tokens/mês)",
+                configuracoes: [
+                    {
+                        GPU: "8-10 NVIDIA Tesla T4",
+                        CPU: "Intel Xeon Silver 4214",
+                        RAM: "256-512 GB",
+                        Armazenamento: "2-4 TB SSD",
+                        Custo: [24000, 30000]
+                    },
+                    {
+                        GPU: "4 NVIDIA A100",
+                        CPU: "Intel Xeon Gold 6230",
+                        RAM: "512 GB",
+                        Armazenamento: "4 TB SSD",
+                        Custo: [64800]
+                    },
+                    {
+                        GPU: "7-9 NVIDIA RTX 3090",
+                        CPU: "AMD Ryzen 9 5950X",
+                        RAM: "256-512 GB",
+                        Armazenamento: "4 TB SSD",
+                        Custo: [13000, 18000]
+                    }
+                ]
+            },
+            {
+                escala: "Ultra Grande Escala (70-100 milhões de tokens/mês)",
+                configuracoes: [
+                    {
+                        GPU: "10-12 NVIDIA Tesla T4",
+                        CPU: "Intel Xeon Silver 4214",
+                        RAM: "512-1024 GB",
+                        Armazenamento: "4-6 TB SSD",
+                        Custo: [30000, 36000]
+                    },
+                    {
+                        GPU: "5 NVIDIA A100",
+                        CPU: "Intel Xeon Gold 6230",
+                        RAM: "1024 GB",
+                        Armazenamento: "6 TB SSD",
+                        Custo: [81000]
+                    },
+                    {
+                        GPU: "9-12 NVIDIA RTX 3090",
+                        CPU: "AMD Ryzen 9 5950X",
+                        RAM: "512-1024 GB",
+                        Armazenamento: "6 TB SSD",
+                        Custo: [18000, 25000]
+                        }
+                ]
             }
         ];
  
@@ -362,8 +414,10 @@
             return configuracoes[2];
         } else if (tokens <= 50) {
             return configuracoes[3];
-        } else if (tokens > 50) {
-            return configuracoes[3];
+        } else if (tokens <= 70) {
+            return configuracoes[4];
+        } else if (tokens >= 71) {
+            return configuracoes[5];
         }
          else {
             return "Número de tokens fora do intervalo especificado.";
