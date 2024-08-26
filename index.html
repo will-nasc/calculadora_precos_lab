@@ -15,6 +15,7 @@
         .card-header h5, .card-header i { display: inline; }
         .card-header i { margin-left: 10px; }
         .total-cost { font-size: 1.5em; margin-bottom: 20px; color: #007bff; }
+        .total-cost-machine { font-size: 1.5em; margin-bottom: 20px; color: #007bff; }
         #cardsContainer { max-height: 70vh; overflow-y: auto; padding: 10px; border: 1px solid #ccc; }
     </style>
 </head>
@@ -22,11 +23,10 @@
     <div class="container">
         <h1 class="mb-4">Estimativa de Custos</h1>
         <div class="result total-cost" id="totalCost">Mensal: $0.00 USD</div>
-        <br>
-        <h1 class="mb-4">Comparação entre serviço e infra própria</h1>
-        <div class="slidecontainer">
+        <div class="result total-cost-machine" id="total-cost-machine"></div>
+        <div class="inputcontainer">
             <h5>Meses</h5>
-            <input type="range" min="1" max="120" value="60" class="slider" id="monthCostRange" onchange="calculateCost()">
+            <input type="number" min="1" max="120" value="60" id="monthCostNumber" onchange="calculateCost()" oninput="checkValue(this)">
         </div>
        
         <div class="result" id="result"></div>
@@ -379,8 +379,8 @@
  
    function calculateCost() {
  
- 
-    const periodo = document.getElementById("monthCostRange").value;
+    debugger;
+    const periodo = document.getElementById("monthCostNumber").value;
     let totalTokens = 0;
  
        // GPT Model Calculation
@@ -462,14 +462,16 @@
  
        // Total Cost Calculation
        const custoServicoMensal = totalGptCost + totalEmbeddingCost + totalServiceCost + totalPineconeCost + totalDatabaseCost;
-       document.getElementById('totalCost').innerText = `Custo mensal: $${custoServicoMensal.toFixed(2)} USD`;
+       document.getElementById('totalCost').innerText = `Custo mensal do serviço: $${custoServicoMensal.toFixed(2)} USD`;
        const configs = obterConfiguracao(totalTokens);
         mediaPrecoMaquina = calcularMediaPreco(configs);
         const custoMaquinaMensal = (mediaPrecoMaquina / periodo) + 56;
         const custoTotalServico = custoServicoMensal * periodo;
         const custoTotalMaquina = custoMaquinaMensal * periodo;
+        document.getElementById('total-cost-machine').innerText = `Custo mensal da máquina $${Math.round(custoTotalMaquina/periodo)} USD`
  
-        let comparacao =    `<h2>Comparação de Custos em ${periodo} meses</h2>`;
+ 
+        let comparacao =    `<h2>Custo total em ${periodo} meses</h2>`;
         comparacao += `<p>Custo do Serviço: $${custoTotalServico.toFixed(2)}</p>`;
         comparacao += `<p>Custo da Máquina: $${custoTotalMaquina.toFixed(2)} | <span>${configs.escala}</span></p> ` ;
  
